@@ -4,10 +4,10 @@
   become: true
   tasks:
 
-  - name: update erepository index
+  - name: update repository index
     apt:
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
+    when: ansible_distribution ==  "Ubuntu"
 
   - name: install apache2 package
     apt:
