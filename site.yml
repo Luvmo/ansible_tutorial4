@@ -4,29 +4,23 @@
    become: true
    pre_tasks:
  
-   - name: install updates (CentOS)
+   - name: update repo cache (CentOS)
      tags: always
      dnf:
-       update_only: yes
        update_cache: yes
+     changed_when: false
      when: ansible_distribution == "CentOS"
  
-   - name: install updates (Ubuntu)
+   - name: update repo cache (Ubuntu)
      tags: always
      apt:
-       upgrade: dist
        update_cache: yes
+     changed_when: false
      when: ansible_distribution == "Ubuntu"
 
  - hosts: all
    become: true
    tasks:
-
-   - name: create lovemore user
-     tags: always
-     user:
-       name: lovemore
-       groups: root
 
    - name: add ssh key for lovemore
      tags: always
@@ -34,14 +28,6 @@
        user: lovemore
        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKJ8nTv23tnglOkH4lAJLBy7u+hcii/W7XywAUq+oLwj ansible_mo12"
 
-   - name: add sudoers file for lovemore
-     tags: always
-     copy:
-       src: sudoer_lovemore
-       dest: /etc/sudoers.d/lovemore
-       owner: root
-       group: root
-       mode: 0440
 
  - hosts: workstations
    become: true
@@ -51,7 +37,7 @@
      package:
        name: unzip
 
-   - name: install terrafoam
+   - name: install terraform
      unarchive:
        src: https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip
        dest: /usr/local/bin
