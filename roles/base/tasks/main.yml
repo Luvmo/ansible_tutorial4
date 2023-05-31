@@ -1,0 +1,6 @@
+- name: add ssh key for lovemore
+  authorized_key:
+    user: lovemore
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKJ8nTv23tnglOkH4lAJLBy7u+hcii/W7XywAUq+oLwj ansible_mo12"
+
+
